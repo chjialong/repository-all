@@ -98,7 +98,7 @@ public abstract class MybatisRepositoryImpl<Entity> implements WriteRepository<E
      */
     @Override
     public <ReturnType> ReturnType get(GetQueryFilter<ReturnType> filter) {
-        return this.sqlSessionTemplate.selectOne(this.getSM(this.getSM(filter) + clazz.getSimpleName()), filter);
+        return this.sqlSessionTemplate.selectOne(this.getSM(this.getSM(filter)), filter);
     }
 
     @Override
