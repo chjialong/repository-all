@@ -1,5 +1,6 @@
 package com.jialong.repository.mybatis.reflection.factory;
 
+import com.jialong.repository.mybatis.type.IgnoreTypeRegistry;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.type.SimpleTypeRegistry;
 import org.springframework.cglib.proxy.Callback;
@@ -31,7 +32,7 @@ public class GCLibObjectFactory extends DefaultObjectFactory {
         if (type == Set.class) {
             return false;
         }
-        if (SimpleTypeRegistry.isSimpleType(type)) {
+        if (IgnoreTypeRegistry.isIgnoreType(type)) {
             return false;
         }
         return true;

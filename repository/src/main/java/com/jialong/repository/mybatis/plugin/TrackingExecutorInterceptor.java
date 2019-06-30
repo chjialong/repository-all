@@ -1,6 +1,7 @@
 package com.jialong.repository.mybatis.plugin;
 
 import com.jialong.repository.mybatis.reflection.factory.ObjectWrapper;
+import com.jialong.repository.mybatis.type.IgnoreTypeRegistry;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -8,10 +9,11 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.SimpleTypeRegistry;
 import org.springframework.cglib.proxy.Factory;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
 @Intercepts({
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class})
@@ -60,7 +62,7 @@ public class TrackingExecutorInterceptor implements Interceptor {
 
     private boolean startTracking(Object item) {
         Class type = item.getClass();
-        if (SimpleTypeRegistry.isSimpleType(type)) {
+        if (IgnoreTypeRegistry.isIgnoreType(type)) {
             return false;
         }
         if (!(item instanceof Factory)) {
