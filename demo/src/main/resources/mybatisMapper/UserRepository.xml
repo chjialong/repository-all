@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.domain.User">
+    <sql id="model">
+        c.id,
+        c.name,
+        c.age,
+        c.update_time
+    </sql>
+
+    <select id="get" resultType="User">
+        select
+        <include refid="model"></include>
+        from tb_user c
+        where c.id = #{id}
+        limit 1
+    </select>
+
+    <select id="UserSimpleQueryFilter" resultType="User">
+        select
+        <include refid="model"></include>
+        from tb_user c
+        where 1 = 0
+        <trim prefix=" or ( " suffix=" ) " prefixOverrides=",">
+            <if test="age != null">
+                ,c.age = #{age}
+            </if>
+        </trim>
+    </select>
+
+    <select id="UserReportQueryFilter" resultType="int">
+        select count(0)
+        from tb_user c
+        where 1 = 0
+        <trim prefix=" or ( " suffix=" ) " prefixOverrides=",">
+            <if test="age != null">
+                ,c.age >= #{age}
+            </if>
+        </trim>
+    </select>
+
+    <update id="update">
+        update tb_user
+        <trim prefix="set" prefixOverrides=",">
+            <if test="name != null">
+                ,name = #{name}
+            </if>
+            <if test="age != null">
+                ,age = #{age}
+            </if>
+            <if test="updateTime != null">
+                ,update_time = #{updateTime}
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="User">
+        insert into tb_user(
+          id
+          ,name
+          ,age
+          ,update_time
+        )
+        values(
+          #{id}
+          ,#{name}
+          ,#{age}
+          ,#{updateTime}
+        )
+    </insert>
+</mapper>

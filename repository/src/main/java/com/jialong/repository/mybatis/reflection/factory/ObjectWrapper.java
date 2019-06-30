@@ -49,11 +49,11 @@ public class ObjectWrapper implements MethodInterceptor {
         this.changeTracking = true;
     }
 
-    public static Map<String, Object> determineChangedFields(Object value) {
-        if (!(value instanceof Factory)) {
+    public static Map<String, Object> determineChangedFields(Object object) {
+        if (!(object instanceof Factory)) {
             return null;
         }
-        Factory factory = (Factory) value;
+        Factory factory = (Factory) object;
         ObjectWrapper objectWrapper = (ObjectWrapper) factory.getCallback(1);
         Map<String, Object> changedFieldMap = new HashMap<>();
         for (Map.Entry<String, PropertyWrapper> entry : objectWrapper.getPropertyWrapperMap().entrySet()) {
@@ -64,6 +64,23 @@ public class ObjectWrapper implements MethodInterceptor {
             changedFieldMap.put(propertyWrapper.getFieldName(), propertyWrapper.getNewValue());
         }
         return changedFieldMap;
+    }
+
+    /**
+     * 重置object中发生变更的字段信息
+     * @param object
+     */
+    public static void resetChangedFields(Object object) {
+        if (!(object instanceof Factory)) {
+            return;
+        }
+        Factory factory = (Factory) object;
+        ObjectWrapper objectWrapper = (ObjectWrapper) factory.getCallback(1);
+        Map<String, Object> changedFieldMap = new HashMap<>();
+        for (Map.Entry<String, PropertyWrapper> entry : objectWrapper.getPropertyWrapperMap().entrySet()) {
+            PropertyWrapper propertyWrapper = entry.getValue();
+            propertyWrapper.setChanged(false);
+        }
     }
 
     @Override

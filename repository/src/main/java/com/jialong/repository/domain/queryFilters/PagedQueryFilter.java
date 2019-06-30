@@ -11,8 +11,10 @@ public abstract class PagedQueryFilter<ReturnType> implements QueryFilter<Return
      */
     protected int pageIndex;
     protected int pageSize;
-    protected Date beginTime;
-    protected Date endTime;
+
+    /**
+     * 是否返回总记录数
+     */
     protected boolean returnRowCount;
 
     /**
@@ -45,22 +47,6 @@ public abstract class PagedQueryFilter<ReturnType> implements QueryFilter<Return
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public Date getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     /**

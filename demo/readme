@@ -1,0 +1,12 @@
+此项目只是做简单测试。
+测试使用的数据库是mysql，测试表的建表sql：
+
+CREATE TABLE `tb_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `update_time` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+和我交流和吐槽：chjialong2001@163.com

@@ -1,5 +1,6 @@
 package com.jialong.repository;
 
+import com.jialong.repository.mybatis.entitytypeconfigurations.EntityTypeConfiguration;
 import com.jialong.repository.mybatis.entitytypeconfigurations.EntityTypeConfigurationContext;
 
 /**
@@ -36,5 +37,5 @@ public interface WriteRepository<Entity> {
         return 0;
     }
 
-    void onEntityTypeConfigurationCreating(EntityTypeConfigurationContext<Entity> context);
+    void onEntityTypeConfigurationCreating(EntityTypeConfiguration<Entity> context);
 }

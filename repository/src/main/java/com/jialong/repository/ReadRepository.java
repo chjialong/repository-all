@@ -15,7 +15,7 @@ public interface ReadRepository<Entity> {
     /**
      * 获取单个数据
      */
-    default <E> Entity get(E id) {
+    default <IdType> Entity get(IdType id) {
         return null;
     }
 
